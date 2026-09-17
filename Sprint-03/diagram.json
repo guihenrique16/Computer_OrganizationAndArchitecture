@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "author": "Sprint 3 - Controle Inteligente de Recarga",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-pi-pico", "id": "pico", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led_verde",
+      "top": -32.4,
+      "left": 167,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "resistor_verde",
+      "top": -14.95,
+      "left": 85,
+      "rotate": 180,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_amarelo",
+      "top": 54,
+      "left": 167,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "resistor_amarelo",
+      "top": 99.95,
+      "left": 105.6,
+      "rotate": 180,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_vermelho",
+      "top": 159.6,
+      "left": 167,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "resistor_vermelho",
+      "top": 205.85,
+      "left": 94.6,
+      "rotate": 180,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd_dados",
+      "top": -128,
+      "left": 351.2,
+      "attrs": { "pins": "i2c", "i2cAddress": "0x27", "background": "blue", "color": "white" }
+    },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd_sessao",
+      "top": 131.2,
+      "left": 351.2,
+      "attrs": { "pins": "i2c", "i2cAddress": "0x26", "background": "green", "color": "black" }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pot_geracao",
+      "top": 369.8,
+      "left": 306.2,
+      "attrs": { "value": "818", "travelLength": "100" }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pot_consumo",
+      "top": 480,
+      "left": 300,
+      "attrs": { "value": "307", "travelLength": "100" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn_emergencia",
+      "top": 284.6,
+      "left": -172.8,
+      "attrs": { "color": "red", "label": "EMERGENCIA", "key": "E", "bounce": "0" }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "rele_carga",
+      "top": 432.2,
+      "left": -192,
+      "attrs": { "transistor": "pnp" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_carga",
+      "top": 361.2,
+      "left": -53.8,
+      "attrs": { "color": "blue", "label": "CARREGADOR" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "resistor_carga",
+      "top": 406.6,
+      "left": -20.05,
+      "rotate": 270,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "chave_modo",
+      "top": -91.6,
+      "left": -73.7,
+      "attrs": { "value": "", "bounce": "0" }
+    }
+  ],
+  "connections": [
+    [ "pico:GP2", "led_verde:A", "green", [ "v-3.15", "h186" ] ],
+    [ "led_verde:C", "resistor_verde:1", "green", [ "h0" ] ],
+    [ "resistor_verde:2", "pico:GND.1", "black", [ "h-94.8", "v41.55" ] ],
+    [ "pico:GP3", "led_amarelo:A", "yellow", [ "h22.8", "v64.05", "h163.2" ] ],
+    [ "led_amarelo:C", "resistor_amarelo:1", "yellow", [ "h0" ] ],
+    [ "resistor_amarelo:2", "pico:GND.2", "black", [ "h-115.4", "v-25.35" ] ],
+    [ "pico:GP4", "led_vermelho:A", "red", [ "h51.6", "v160.05", "h134.4" ] ],
+    [ "led_vermelho:C", "resistor_vermelho:1", "red", [ "h0" ] ],
+    [ "resistor_vermelho:2", "pico:GND.3", "black", [ "h-104.4", "v-83.25" ] ],
+    [ "pico:GP0", "lcd_dados:SDA", "purple", [ "v-3.15", "h-25.2", "v48", "h336", "v-134.6" ] ],
+    [ "pico:GP1", "lcd_dados:SCL", "orange", [ "h330", "v-89.85" ] ],
+    [ "pico:VBUS", "lcd_dados:VCC", "red", [ "v-60.75", "h4.8", "h220.8", "v-38.5" ] ],
+    [ "pico:GND.4", "lcd_dados:GND", "black", [ "h32.4", "v-41.55", "h249.6", "v-268.8" ] ],
+    [
+      "pico:GP0",
+      "lcd_sessao:SDA",
+      "purple",
+      [ "v-12.75", "h-34.8", "v230.4", "h355.2", "v-45" ]
+    ],
+    [ "pico:GP1", "lcd_sessao:SCL", "orange", [ "h243.6", "v172.55" ] ],
+    [ "pico:VBUS", "lcd_sessao:VCC", "red", [ "h24", "v35.25", "h124.8", "v124.7" ] ],
+    [ "pico:GND.5", "lcd_sessao:GND", "black", [ "h33.6", "v-22.35", "h220.8", "v12.8" ] ],
+    [ "pot_geracao:SIG", "pico:GP26", "blue", [ "h-240", "v-333.65" ] ],
+    [ "pot_geracao:VCC", "pico:3V3", "red", [ "h-211.2", "v-361.65" ] ],
+    [ "pot_geracao:GND", "pico:GND.7", "black", [ "h9.4", "v-48", "h-739.2", "v-284.85" ] ],
+    [ "pot_consumo:SIG", "pico:GP27", "orange", [ "h-214.6", "v-453.45" ] ],
+    [ "pot_consumo:VCC", "pico:3V3", "red", [ "h-205", "v-471.85" ] ],
+    [ "pot_consumo:GND", "pico:GND.8", "black", [ "h15.6", "v-43", "h-739.2", "v-448.05" ] ],
+    [ "pico:GP15", "btn_emergencia:1.l", "red", [ "h-188.4", "v102.45" ] ],
+    [ "btn_emergencia:2.l", "pico:GND.1", "black", [ "h-9.6", "v29", "h188.4" ] ],
+    [ "pico:GP16", "rele_carga:IN", "purple", [ "v54.45", "h-292.8", "v221" ] ],
+    [ "pico:VBUS", "rele_carga:VCC", "red", [ "h-4.8", "v-31.95", "h-259.2" ] ],
+    [ "pico:GND.2", "rele_carga:GND", "black", [ "h-207.6", "v381.25" ] ],
+    [ "pico:VBUS", "rele_carga:COM", "red", [ "h-4.8", "v-31.95", "h-124.8", "v481.4" ] ],
+    [ "rele_carga:NO", "led_carga:A", "blue", [] ],
+    [ "led_carga:C", "resistor_carga:1", "blue", [ "h0.4", "v115.2" ] ],
+    [ "resistor_carga:2", "pico:GND.3", "black", [ "v-8.4", "h19.2", "v-246.45" ] ],
+    [ "chave_modo:1", "pico:GND.1", "black", [ "v28.8", "v60.75" ] ],
+    [ "chave_modo:2", "pico:GP14", "green", [ "v19.2", "h0.1", "v223.95" ] ],
+    [ "chave_modo:3", "pico:3V3", "red", [ "v9.6", "h0.2", "v115.2", "h120" ] ]
+  ],
+  "dependencies": {}
+}
